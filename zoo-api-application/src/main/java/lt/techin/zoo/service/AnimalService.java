@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.Optional;
 
 import static lt.techin.zoo.model.AnimalType.*;
 
@@ -24,11 +25,24 @@ public class AnimalService {
         return animalRepository.findAll();
     }
 
-    //TODO create
+    public Optional<Animal> getById(Long id) {
+        return animalRepository.findById(id);
+    }
 
-    //TODO update
 
-    //TODO delete
+    public Animal create(Animal animal) {
+        return animalRepository.save(animal);
+    }
+
+    public Animal update(Long id, Animal animal) {
+        animal.setId(id);//FIXME will improve later
+
+        return animalRepository.save(animal);
+    }
+
+    public void deleteById(Long id) {
+        animalRepository.deleteById(id);
+    }
 
     @PostConstruct
     //FIXME for dev purpose

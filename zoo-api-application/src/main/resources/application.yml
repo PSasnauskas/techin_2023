@@ -9,4 +9,4 @@ logging:
     lt:
       techin: DEBUG
     org:
-      springframework: DEBUG
+      springframework: INFO

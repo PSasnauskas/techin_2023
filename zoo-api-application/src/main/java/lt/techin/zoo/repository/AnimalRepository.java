@@ -22,17 +22,23 @@ public class AnimalRepository {
         return new ArrayList<>(animals.values());
     }
 
-    public void save(Animal animal) {
+    public Animal save(Animal animal) {
         if (animal.getId() == null) {
             Long newId = (long) idGenerator.incrementAndGet();
             animal.setId(newId);
         }
 
         animals.put(animal.getId(), animal);
+
+        return animal;
     }
 
     public Optional<Animal> findById(Long id) {
-        return Optional.of(animals.get(id));
+        return Optional.ofNullable(animals.get(id));
+    }
+
+    public void deleteById(Long id) {
+        animals.remove(id);
     }
 
 }
