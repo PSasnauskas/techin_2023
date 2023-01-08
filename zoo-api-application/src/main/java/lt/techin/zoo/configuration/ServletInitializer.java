@@ -1,5 +1,6 @@
-package lt.techin.zoo.api;
+package lt.techin.zoo.configuration;
 
+import lt.techin.zoo.ZooApiApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
