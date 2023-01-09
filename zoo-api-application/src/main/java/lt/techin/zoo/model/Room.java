@@ -1,17 +1,21 @@
 package lt.techin.zoo.model;
 
 
+import javax.persistence.*;
 import java.util.Objects;
 
-//@Entity
+import static javax.persistence.EnumType.STRING;
+
+@Entity
 public class Room {
 
-    //    @Id
-//    @GeneratedValue(strategy= GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
 
+    @Enumerated(STRING)
     private RoomType type;
 
     private String description;

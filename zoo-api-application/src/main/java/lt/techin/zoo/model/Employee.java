@@ -8,8 +8,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Objects;
 
-@Entity
-public class Animal {
+//@Entity
+//TODO pabaigti namie:
+// - Controller
+// - Service
+// - Repository
+// - this @Entity
+// - Dto
+// - Mapper
+public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,7 +28,7 @@ public class Animal {
 
     private String description;
 
-    public Animal() {
+    public Employee() {
     }
 
     public Long getId() {
@@ -60,7 +67,7 @@ public class Animal {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Animal animal = (Animal) o;
+        Employee animal = (Employee) o;
         return Objects.equals(id, animal.id) &&
                 Objects.equals(name, animal.name) &&
                 type == animal.type &&

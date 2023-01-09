@@ -1,47 +1,17 @@
 package lt.techin.zoo.dao;
 
 import lt.techin.zoo.model.Room;
+import lt.techin.zoo.model.RoomType;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
-
-
-//public interface AnimalRepository extends JpaRepository<Animal, Long> {
-// findStoreByLocationId
+import java.util.List;
 
 @Repository
-public class RoomRepository {
+public interface RoomRepository extends JpaRepository<Room, Long> {
 
-    private AtomicInteger idGenerator;
-    private Map<Long, Room> rooms;
+    long countByName(String name);
 
-    public RoomRepository() {
-        this.rooms = new HashMap<>();
-        this.idGenerator = new AtomicInteger();
-    }
-
-    public List<Room> findAll() {
-        return new ArrayList<>(rooms.values());
-    }
-
-    public Room save(Room animal) {
-        if (animal.getId() == null) {
-            Long newId = (long) idGenerator.incrementAndGet();
-            animal.setId(newId);
-        }
-
-        rooms.put(animal.getId(), animal);
-
-        return animal;
-    }
-
-    public Optional<Room> findById(Long id) {
-        return Optional.ofNullable(rooms.get(id));
-    }
-
-    public void deleteById(Long id) {
-        rooms.remove(id);
-    }
+    List<Room> findFirst3ByType(RoomType type);
 
 }

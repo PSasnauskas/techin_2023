@@ -4,6 +4,7 @@ import lt.techin.zoo.api.dto.AnimalDto;
 import lt.techin.zoo.api.dto.mapper.AnimalMapper;
 import lt.techin.zoo.model.Animal;
 import lt.techin.zoo.dao.AnimalRepository;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -40,8 +41,13 @@ public class AnimalService {
         return animalRepository.save(animal);
     }
 
-    public void deleteById(Long id) {
-        animalRepository.deleteById(id);
+    public boolean deleteById(Long id) {
+        try {
+            animalRepository.deleteById(id);
+            return true;
+        } catch (EmptyResultDataAccessException exception) {
+            return false;
+        }
     }
 
     @PostConstruct
@@ -57,5 +63,7 @@ public class AnimalService {
                 .map(AnimalMapper::toAnimal)
                 .forEach(animalRepository::save);
     }
+
+
 
 }
