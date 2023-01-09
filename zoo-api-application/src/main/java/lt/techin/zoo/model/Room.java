@@ -1,27 +1,22 @@
 package lt.techin.zoo.model;
 
 
-import nonapi.io.github.classgraph.json.Id;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import java.util.Objects;
 
 //@Entity
-public class Animal {
+public class Room {
 
-//    @Id
+    //    @Id
 //    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
     private String name;
 
-    private AnimalType type;
+    private RoomType type;
 
     private String description;
 
-    public Animal() {
+    public Room() {
     }
 
     public Long getId() {
@@ -40,11 +35,11 @@ public class Animal {
         this.name = name;
     }
 
-    public AnimalType getType() {
+    public RoomType getType() {
         return type;
     }
 
-    public void setType(AnimalType type) {
+    public void setType(RoomType type) {
         this.type = type;
     }
 
@@ -60,11 +55,8 @@ public class Animal {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Animal animal = (Animal) o;
-        return Objects.equals(id, animal.id) &&
-                Objects.equals(name, animal.name) &&
-                type == animal.type &&
-                Objects.equals(description, animal.description);
+        Room room = (Room) o;
+        return Objects.equals(id, room.id) && Objects.equals(name, room.name) && type == room.type && Objects.equals(description, room.description);
     }
 
     @Override
@@ -74,7 +66,7 @@ public class Animal {
 
     @Override
     public String toString() {
-        return "Animal{" +
+        return "Room{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", type=" + type +

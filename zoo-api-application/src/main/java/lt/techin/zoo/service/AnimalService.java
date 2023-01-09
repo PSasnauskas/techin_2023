@@ -3,7 +3,7 @@ package lt.techin.zoo.service;
 import lt.techin.zoo.api.dto.AnimalDto;
 import lt.techin.zoo.api.dto.mapper.AnimalMapper;
 import lt.techin.zoo.model.Animal;
-import lt.techin.zoo.repository.AnimalRepository;
+import lt.techin.zoo.dao.AnimalRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;

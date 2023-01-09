@@ -1,6 +1,6 @@
-package lt.techin.zoo.repository;
+package lt.techin.zoo.dao;
 
-import lt.techin.zoo.model.Animal;
+import lt.techin.zoo.model.Room;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -11,38 +11,37 @@ import java.util.concurrent.atomic.AtomicInteger;
 // findStoreByLocationId
 
 @Repository
-public class AnimalRepository {
+public class RoomRepository {
 
-    //FIXME temp implementation before going JPA
     private AtomicInteger idGenerator;
-    private Map<Long, Animal> animals;
+    private Map<Long, Room> rooms;
 
-    public AnimalRepository() {
-        this.animals = new HashMap<>();
+    public RoomRepository() {
+        this.rooms = new HashMap<>();
         this.idGenerator = new AtomicInteger();
     }
 
-    public List<Animal> findAll() {
-        return new ArrayList<>(animals.values());
+    public List<Room> findAll() {
+        return new ArrayList<>(rooms.values());
     }
 
-    public Animal save(Animal animal) {
+    public Room save(Room animal) {
         if (animal.getId() == null) {
             Long newId = (long) idGenerator.incrementAndGet();
             animal.setId(newId);
         }
 
-        animals.put(animal.getId(), animal);
+        rooms.put(animal.getId(), animal);
 
         return animal;
     }
 
-    public Optional<Animal> findById(Long id) {
-        return Optional.ofNullable(animals.get(id));
+    public Optional<Room> findById(Long id) {
+        return Optional.ofNullable(rooms.get(id));
     }
 
     public void deleteById(Long id) {
-        animals.remove(id);
+        rooms.remove(id);
     }
 
 }

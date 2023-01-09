@@ -1,27 +1,31 @@
-package lt.techin.zoo.model;
+package lt.techin.zoo.api.dto;
 
 
-import nonapi.io.github.classgraph.json.Id;
+import lt.techin.zoo.model.RoomType;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import java.util.Objects;
 
 //@Entity
-public class Animal {
+public class RoomDto {
 
-//    @Id
+    //    @Id
 //    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
     private String name;
 
-    private AnimalType type;
+    private RoomType type;
 
     private String description;
 
-    public Animal() {
+    public RoomDto() {
+    }
+
+    public RoomDto(Long id, String name, RoomType type, String description) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.description = description;
     }
 
     public Long getId() {
@@ -40,11 +44,11 @@ public class Animal {
         this.name = name;
     }
 
-    public AnimalType getType() {
+    public RoomType getType() {
         return type;
     }
 
-    public void setType(AnimalType type) {
+    public void setType(RoomType type) {
         this.type = type;
     }
 
@@ -60,11 +64,8 @@ public class Animal {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Animal animal = (Animal) o;
-        return Objects.equals(id, animal.id) &&
-                Objects.equals(name, animal.name) &&
-                type == animal.type &&
-                Objects.equals(description, animal.description);
+        RoomDto room = (RoomDto) o;
+        return Objects.equals(id, room.id) && Objects.equals(name, room.name) && type == room.type && Objects.equals(description, room.description);
     }
 
     @Override
@@ -74,12 +75,11 @@ public class Animal {
 
     @Override
     public String toString() {
-        return "Animal{" +
+        return "RoomDto{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", type=" + type +
                 ", description='" + description + '\'' +
                 '}';
     }
-
 }
