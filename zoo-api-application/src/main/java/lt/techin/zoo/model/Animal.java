@@ -1,10 +1,18 @@
 package lt.techin.zoo.model;
 
 
+import nonapi.io.github.classgraph.json.Id;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import java.util.Objects;
 
+@Entity
 public class Animal {
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
     private String name;

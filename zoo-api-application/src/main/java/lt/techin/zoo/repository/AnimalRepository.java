@@ -6,6 +6,10 @@ import org.springframework.stereotype.Repository;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
+
+//public interface AnimalRepository extends JpaRepository<Animal, Long> {
+// findStoreByLocationId
+
 @Repository
 public class AnimalRepository {
 
