@@ -3,19 +3,25 @@ package lt.techin.zoo.api.dto;
 
 import lt.techin.zoo.model.RoomType;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
-//@Entity
 public class RoomDto {
 
-    //    @Id
-//    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
+    @NotNull
+    @Min(1)
+    @Max(3)
     private String name;
 
+    @NotNull
     private RoomType type;
 
+    @NotBlank
     private String description;
 
     public RoomDto() {

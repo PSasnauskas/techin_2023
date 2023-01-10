@@ -2,8 +2,8 @@ package lt.techin.zoo.service;
 
 import lt.techin.zoo.api.dto.AnimalDto;
 import lt.techin.zoo.api.dto.mapper.AnimalMapper;
-import lt.techin.zoo.model.Animal;
 import lt.techin.zoo.dao.AnimalRepository;
+import lt.techin.zoo.model.Animal;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +36,7 @@ public class AnimalService {
     }
 
     public Animal update(Long id, Animal animal) {
-        animal.setId(id);//FIXME will improve later
+        animal.setId(id);
 
         return animalRepository.save(animal);
     }
@@ -50,20 +50,23 @@ public class AnimalService {
         }
     }
 
+    public List<Animal> findMarkedAnimals() {
+        return animalRepository.findAllMarkedAnimals();
+    }
+
     @PostConstruct
     //FIXME for dev purpose
     public void loadInitialAnimals() {
         var initialAnimalsToAdd = List.of(
-                new AnimalDto(null, "zirafa", GIRAFFE, ""),
-                new AnimalDto(null, "tigriukas", TIGER, ""),
-                new AnimalDto(null, "liutukas", LION, "")
+                new AnimalDto("zirafa", GIRAFFE, ""),
+                new AnimalDto("tigriukas", TIGER, ""),
+                new AnimalDto("liutukas", LION, "")
         );
 
         initialAnimalsToAdd.stream()
                 .map(AnimalMapper::toAnimal)
                 .forEach(animalRepository::save);
     }
-
 
 
 }

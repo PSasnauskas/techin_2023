@@ -6,8 +6,10 @@ import lt.techin.zoo.model.RoomType;
 import lt.techin.zoo.service.RoomService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +20,7 @@ import static org.springframework.http.ResponseEntity.ok;
 
 @Controller
 @RequestMapping("/api/v1/rooms")
+@Validated
 public class RoomController {
 
     private final RoomService roomService;
@@ -61,7 +64,7 @@ public class RoomController {
     }
 
     @PostMapping
-    public ResponseEntity<RoomDto> createRoom(@RequestBody RoomDto roomDto) {
+    public ResponseEntity<RoomDto> createRoom(@Valid @RequestBody RoomDto roomDto) {
         //FIXME temp
         roomDto.setId(null);
 

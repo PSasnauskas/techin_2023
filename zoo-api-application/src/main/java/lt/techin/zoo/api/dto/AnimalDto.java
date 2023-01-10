@@ -7,8 +7,6 @@ import java.util.Objects;
 //@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AnimalDto {
 
-    private Long id;
-
     private String name;
 
     private AnimalType type;
@@ -18,19 +16,10 @@ public class AnimalDto {
     public AnimalDto() {
     }
 
-    public AnimalDto(Long id, String name, AnimalType type, String description) {
-        this.id = id;
+    public AnimalDto(String name, AnimalType type, String description) {
         this.name = name;
         this.type = type;
         this.description = description;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -62,18 +51,17 @@ public class AnimalDto {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AnimalDto animalDto = (AnimalDto) o;
-        return Objects.equals(id, animalDto.id) && Objects.equals(name, animalDto.name) && type == animalDto.type && Objects.equals(description, animalDto.description);
+        return Objects.equals(name, animalDto.name) && type == animalDto.type && Objects.equals(description, animalDto.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, type, description);
+        return Objects.hash(name, type, description);
     }
 
     @Override
     public String toString() {
         return "AnimalDto{" +
-                "id=" + id +
                 ", name='" + name + '\'' +
                 ", type=" + type +
                 ", description='" + description + '\'' +
