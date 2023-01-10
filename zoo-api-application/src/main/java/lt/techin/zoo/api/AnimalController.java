@@ -4,6 +4,9 @@ import lt.techin.zoo.api.dto.AnimalDto;
 import lt.techin.zoo.api.dto.mapper.AnimalMapper;
 import lt.techin.zoo.model.Animal;
 import lt.techin.zoo.service.AnimalService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -19,18 +22,21 @@ import static org.springframework.http.ResponseEntity.ok;
 @RequestMapping("/api/v1/animals")
 public class AnimalController {
 
+    public static Logger logger = LoggerFactory.getLogger(AnimalController.class);
+
     private final AnimalService animalService;
 
     public AnimalController(AnimalService animalService) {
         this.animalService = animalService;
     }
 
-    @GetMapping()
-    @ResponseBody
-    public List<AnimalDto> getAnimals() {
-        return animalService.getAll().stream()
+    //@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE })
+//    @ResponseBody
+    public ResponseEntity<List<AnimalDto>> getAnimals() {
+        return ok(animalService.getAll().stream()
                 .map(AnimalMapper::toAnimalDto)
-                .collect(toList());
+                .collect(toList()));
         //return ResponseEntity.ok(animalRepository.getAll());
     }
 
@@ -47,6 +53,8 @@ public class AnimalController {
 
     @DeleteMapping("/{animalId}")
     public ResponseEntity<Void> deleteAnimal(@PathVariable Long animalId) {
+        logger.info("Attempt to delete Animal by id: {}", animalId);
+
         boolean deleted = animalService.deleteById(animalId);
         if(deleted) {
             return ResponseEntity.noContent().build();
