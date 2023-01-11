@@ -29,14 +29,13 @@ public class AnimalController {
         this.animalService = animalService;
     }
 
-    //@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    @RequestMapping(value = "", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-//    @ResponseBody
-    public ResponseEntity<List<AnimalEntityDto>> getAnimals() {
-        return ok(animalService.getAll().stream()
+    @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+//    @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML_VALUE)
+    @ResponseBody
+    public List<AnimalEntityDto> getAnimals() {
+        return animalService.getAll().stream()
                 .map(AnimalMapper::toAnimalEntityDto)
-                .collect(toList()));
-        //return ResponseEntity.ok(animalRepository.getAll());
+                .collect(toList());
     }
 
     @GetMapping("/marked")
@@ -47,12 +46,7 @@ public class AnimalController {
                 .collect(toList());
     }
 
-    //    @RequestMapping(value = "/{animalId}", method = RequestMethod.GET,
-//            produces = {MediaType.APPLICATION_JSON_VALUE,
-//                    MediaType.APPLICATION_XML_VALUE,
-//                    MediaType.TEXT_XML_VALUE,
-//                    MediaType.TEXT_PLAIN_VALUE})
-    @GetMapping("/{animalId}")
+    @GetMapping(value = "/{animalId}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<AnimalEntityDto> getAnimal(@PathVariable Long animalId) {
         var animalOptional = animalService.getById(animalId);
 
@@ -63,15 +57,6 @@ public class AnimalController {
         return responseEntity;
     }
 
-//    @GetMapping("/{animalId}")
-//    @ResponseBody
-//    public AnimalDto getAnimal(@PathVariable Long animalId) {
-//        var animalOptional = animalService.getById(animalId);
-//
-//        return toAnimalDto(animalOptional.get());
-//    }
-
-
     @DeleteMapping("/{animalId}")
     public ResponseEntity<Void> deleteAnimal(@PathVariable Long animalId) {
         logger.info("Attempt to delete Animal by id: {}", animalId);
@@ -79,13 +64,15 @@ public class AnimalController {
         boolean deleted = animalService.deleteById(animalId);
         if (deleted) {
             return ResponseEntity.noContent().build();
+
+            //galima konstruoti ir taip, visi variantai teisingi
+            //return new ResponseEntity(HttpStatus.NO_CONTENT);
         } else {
             return ResponseEntity.notFound().build();
         }
-        //return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
-    @PostMapping
+    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public ResponseEntity<AnimalDto> createAnimal(@RequestBody AnimalDto animalDto) {
         var createdAnimal = animalService.create(toAnimal(animalDto));
 
@@ -98,7 +85,5 @@ public class AnimalController {
 
         return ok(toAnimalDto(updatedAnimal));
     }
-
-    //handle error
 
 }

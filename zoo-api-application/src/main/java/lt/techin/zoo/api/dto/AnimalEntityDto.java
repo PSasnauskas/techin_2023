@@ -1,7 +1,5 @@
 package lt.techin.zoo.api.dto;
 
-import lt.techin.zoo.model.AnimalType;
-
 import java.util.Objects;
 
 //@JsonInclude(JsonInclude.Include.NON_NULL)

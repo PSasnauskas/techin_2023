@@ -3,25 +3,20 @@ package lt.techin.zoo.api.dto;
 
 import lt.techin.zoo.model.RoomType;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.util.Objects;
 
 public class RoomDto {
 
     private Long id;
 
-    @NotNull
-    @Min(1)
-    @Max(3)
+    @NotBlank
+    @Size(min = 3, max = 30)
     private String name;
 
     @NotNull
     private RoomType type;
 
-    @NotBlank
     private String description;
 
     public RoomDto() {
