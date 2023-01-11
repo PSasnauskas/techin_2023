@@ -1,6 +1,11 @@
 package lt.techin.zoo.model;
 
 
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -9,7 +14,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-//@EntityListeners(AuditingEntityListener.class)
+//@EntityListeners(AuditingEntityListener.class) <-- nebus per egzamina
 public class Animal {
 
     @Id
@@ -25,34 +30,40 @@ public class Animal {
 
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "room_id", nullable = true)
+    private Boolean registered;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "room_id")
+    //@JoinColumn(name = "room_id", nullable = true)
     private Room room;
 
     //@Column(name = "created_date")
+    @CreatedDate
+    private LocalDateTime createdDate;
 
-    //private LocalDateTime createdDate;
 
-    //@LastModifiedBy
+    @LastModifiedDate
     private LocalDateTime modifiedDate;
 
-    // @CreatedBy
-//    private String createdBy;
-//
-//    private String modifiedBy;
+    @CreatedBy
+    private String createdBy;
 
-//    @PrePersist
-//    public void prePersist() {
-//        createdOn = LocalDateTime.now();
-//        createdBy = LoggedUser.get();
-//    }
-//
-//    @PreUpdate
-//    public void preUpdate() {
-//        updatedOn = LocalDateTime.now();
-//        updatedBy = LoggedUser.get();
-//    }
+    @LastModifiedBy
+    private String modifiedBy;
 
+    @PrePersist
+    public void prePersist() {
+        createdDate = LocalDateTime.now();
+        createdBy = "API app";
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        modifiedDate = LocalDateTime.now();
+        modifiedBy = "API app";
+    }
+
+    //iskvieciamas pries trinant Entity
     //@PreRemove
 
     public Animal() {
@@ -90,6 +101,14 @@ public class Animal {
         this.description = description;
     }
 
+    public Boolean getRegistered() {
+        return registered;
+    }
+
+    public void setRegistered(Boolean registered) {
+        this.registered = registered;
+    }
+
     public Room getRoom() {
         return room;
     }
@@ -106,30 +125,40 @@ public class Animal {
         this.modifiedDate = modifiedDate;
     }
 
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Animal animal = (Animal) o;
-        return Objects.equals(id, animal.id) &&
-                Objects.equals(name, animal.name) &&
-                type == animal.type &&
-                Objects.equals(description, animal.description);
+        return Objects.equals(id, animal.id) && Objects.equals(name, animal.name) && type == animal.type && Objects.equals(description, animal.description) && Objects.equals(registered, animal.registered) && Objects.equals(room, animal.room) && Objects.equals(createdDate, animal.createdDate) && Objects.equals(modifiedDate, animal.modifiedDate) && Objects.equals(createdBy, animal.createdBy) && Objects.equals(modifiedBy, animal.modifiedBy);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, type, description);
+        return Objects.hash(id, name, type, description, registered, room, createdDate, modifiedDate, createdBy, modifiedBy);
     }
-
-    @Override
-    public String toString() {
-        return "Animal{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", type=" + type +
-                ", description='" + description + '\'' +
-                '}';
-    }
-
 }

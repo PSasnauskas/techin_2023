@@ -2,8 +2,8 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-#  jackson:
-#    default-property-inclusion: non_null
+  jackson:
+    default-property-inclusion: non_null
   datasource:
     url: jdbc:h2:mem:mydb
     #    url: jdbc:h2:file:/data/demo
@@ -22,14 +22,15 @@ logging:
     lt:
       techin: DEBUG
     org:
-      springframework: INFO
-#        jdbc:
-#          core:
-#            JdbcTemplate: INFO
-#            StatementCreatorUtils: INFO
+#      springframework: INFO
+      springframework:
+        jdbc:
+          core:
+            JdbcTemplate: DEBUG
+            StatementCreatorUtils: DEBUG
       hibernate:
-        SQL: INFO
+        SQL: DEBUG
       type:
         descriptor:
           sql:
-            BasicBinder: INFO
+            BasicBinder: DEBUG

@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpMediaTypeException;
+import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -119,6 +121,12 @@ public class ApiExceptionHandler {
                 request.getRequestURL().toString(),
                 LocalDateTime.now());
         return ResponseEntity.badRequest().body(errorDto);
+    }
+
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "We do not support this")
+    @ExceptionHandler(HttpMediaTypeException.class)
+    public void handleHttpMediaTypeException(HttpMediaTypeException mediaTypeException) {
+        logger.error("Not supported request resulted in HttpMediaTypeException: {}", mediaTypeException.getMessage());
     }
 
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason = "Something really bad happened")

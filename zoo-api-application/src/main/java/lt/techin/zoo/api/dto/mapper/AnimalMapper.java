@@ -12,6 +12,7 @@ public class AnimalMapper {
         animalDto.setName(animal.getName());
         animalDto.setType(animal.getType());
         animalDto.setDescription(animal.getDescription());
+        animalDto.setRegistered(animal.getRegistered());
 
         return animalDto;
     }
@@ -23,6 +24,7 @@ public class AnimalMapper {
         animalDto.setName(animal.getName());
         animalDto.setType(animal.getType());
         animalDto.setDescription(animal.getDescription());
+        animalDto.setRegistered(animal.getRegistered());
 
         return animalDto;
     }
@@ -33,6 +35,7 @@ public class AnimalMapper {
         animal.setName(animalDto.getName());
         animal.setType(animalDto.getType());
         animal.setDescription(animalDto.getDescription());
+        animal.setRegistered(animalDto.getRegistered());
 
         return animal;
     }
@@ -44,6 +47,7 @@ public class AnimalMapper {
         animal.setName(animalDto.getName());
         animal.setType(animalDto.getType());
         animal.setDescription(animalDto.getDescription());
+        animal.setRegistered(animalDto.getRegistered());
 
         return animal;
     }

@@ -1,5 +1,7 @@
 package lt.techin.zoo.api.dto;
 
+import lt.techin.zoo.model.AnimalType;
+
 import java.util.Objects;
 
 //@JsonInclude(JsonInclude.Include.NON_NULL)
@@ -8,6 +10,11 @@ public class AnimalEntityDto extends AnimalDto {
     private Long id;
 
     public AnimalEntityDto() {
+    }
+
+    public AnimalEntityDto(Long id, String name, AnimalType type, String description, Boolean registered) {
+        super(name, type, description, registered);
+        this.id = id;
     }
 
     public Long getId() {
@@ -36,6 +43,7 @@ public class AnimalEntityDto extends AnimalDto {
     public String toString() {
         return "AnimalEntityDto{" +
                 "id=" + id +
+                " " + super.toString() +
                 '}';
     }
 

@@ -3,6 +3,7 @@ package lt.techin.zoo.api;
 import lt.techin.zoo.api.dto.AnimalDto;
 import lt.techin.zoo.api.dto.AnimalEntityDto;
 import lt.techin.zoo.api.dto.mapper.AnimalMapper;
+import lt.techin.zoo.model.Animal;
 import lt.techin.zoo.service.AnimalService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,11 +48,20 @@ public class AnimalController {
     }
 
     @GetMapping(value = "/{animalId}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public ResponseEntity<AnimalEntityDto> getAnimal(@PathVariable Long animalId) {
+//    public ResponseEntity<AnimalEntityDto> getAnimal(@PathVariable Long animalId) {
+//        var animalOptional = animalService.getById(animalId);
+//
+//        var responseEntity = animalOptional
+//                .map(animal -> ok(toAnimalEntityDto(animal)))
+//                .orElseGet(() -> ResponseEntity.notFound().build());
+//
+//        return responseEntity;
+//    }
+    public ResponseEntity<Animal> getAnimal(@PathVariable Long animalId) {
         var animalOptional = animalService.getById(animalId);
 
         var responseEntity = animalOptional
-                .map(animal -> ok(toAnimalEntityDto(animal)))
+                .map(animal -> ok(animal))
                 .orElseGet(() -> ResponseEntity.notFound().build());
 
         return responseEntity;
@@ -80,10 +90,30 @@ public class AnimalController {
     }
 
     @PutMapping("/{animalId}")
+    public ResponseEntity<AnimalDto> replaceAnimal(@PathVariable Long animalId, @RequestBody AnimalDto animalDto) {
+        var updatedAnimal = animalService.replace(animalId, toAnimal(animalDto));
+
+        return ok(toAnimalDto(updatedAnimal));
+    }
+
+    @PatchMapping("/{animalId}")
     public ResponseEntity<AnimalDto> updateAnimal(@PathVariable Long animalId, @RequestBody AnimalDto animalDto) {
         var updatedAnimal = animalService.update(animalId, toAnimal(animalDto));
 
         return ok(toAnimalDto(updatedAnimal));
+    }
+
+    @PostMapping("/{animalId}/addroom")
+    @ResponseBody
+    public Animal addRoomToAnimal(@PathVariable Long animalId, @RequestParam Long roomId) {
+        return animalService.addRoomToAnimal(animalId, roomId);
+    }
+
+    @PostMapping("/registry/clear")
+    public ResponseEntity<Integer> updateAnimal() {
+        var removedCount = animalService.deleteNonRegistered();
+
+        return ok(removedCount);
     }
 
 }
