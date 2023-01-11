@@ -60,7 +60,7 @@ public class AnimalService {
         var initialAnimalsToAdd = List.of(
                 new AnimalDto("zirafa", GIRAFFE, ""),
                 new AnimalDto("tigriukas", TIGER, ""),
-                new AnimalDto("liutukas", LION, "")
+                new AnimalDto("liutukas", LION, null)
         );
 
         initialAnimalsToAdd.stream()

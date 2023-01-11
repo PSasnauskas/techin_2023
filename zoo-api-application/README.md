@@ -6,9 +6,9 @@
 
 ## Next in our Implementation Roadmap:
 `(we'll do it in our class, this is not the Homework)`
-- [ ] Error handler
-- [ ] Validation. And check
-- [ ] ORM (Spring Data, Jpa, Hibernate)
+- [x] Error handler
+- [x] Validation. And check
+- [x] ORM (Spring Data, Jpa, Hibernate)
 - [ ] DB migrations
 - [ ] Unit Tests, Integration tests
 

@@ -16,6 +16,12 @@ public interface AnimalRepository extends JpaRepository<Animal, Long> {
             nativeQuery = true)
     List<Animal> findAllMarkedAnimals();
 
+
+//    @Modifying
+//    @Query("delete Animal a where a.active = false")
+    //The @Modifying annotation is used to enhance the @Query annotation so that we can execute not only SELECT queries, but also INSERT, UPDATE, DELETE, and even DDL queries.
+//    int deleteDeactivatedAnimals();
+
 //    @Query(
 //            value = "SELECT * FROM animal a WHERE a.status = 1",
 //            nativeQuery = true)
