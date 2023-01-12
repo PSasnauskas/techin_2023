@@ -4,6 +4,7 @@ import lt.techin.zoo.model.AnimalType;
 
 import java.util.Objects;
 
+//konfiguracija tiesiog DTO:
 //@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AnimalEntityDto extends AnimalDto {
 

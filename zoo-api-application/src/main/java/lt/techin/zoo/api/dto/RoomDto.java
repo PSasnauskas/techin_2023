@@ -8,8 +8,6 @@ import java.util.Objects;
 
 public class RoomDto {
 
-    private Long id;
-
     @NotBlank
     @Size(min = 3, max = 30)
     private String name;
@@ -22,19 +20,10 @@ public class RoomDto {
     public RoomDto() {
     }
 
-    public RoomDto(Long id, String name, RoomType type, String description) {
-        this.id = id;
+    public RoomDto(String name, RoomType type, String description) {
         this.name = name;
         this.type = type;
         this.description = description;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -65,22 +54,22 @@ public class RoomDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RoomDto room = (RoomDto) o;
-        return Objects.equals(id, room.id) && Objects.equals(name, room.name) && type == room.type && Objects.equals(description, room.description);
+        RoomDto roomDto = (RoomDto) o;
+        return Objects.equals(name, roomDto.name) && type == roomDto.type && Objects.equals(description, roomDto.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, type, description);
+        return Objects.hash(name, type, description);
     }
 
     @Override
     public String toString() {
         return "RoomDto{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", type=" + type +
                 ", description='" + description + '\'' +
                 '}';
     }
+
 }

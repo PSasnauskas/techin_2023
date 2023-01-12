@@ -1,6 +1,7 @@
 package lt.techin.zoo.api;
 
 import lt.techin.zoo.api.dto.RoomDto;
+import lt.techin.zoo.api.dto.RoomEntityDto;
 import lt.techin.zoo.api.dto.mapper.RoomMapper;
 import lt.techin.zoo.model.RoomType;
 import lt.techin.zoo.service.RoomService;
@@ -13,8 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
-import static lt.techin.zoo.api.dto.mapper.RoomMapper.toRoom;
-import static lt.techin.zoo.api.dto.mapper.RoomMapper.toRoomDto;
+import static lt.techin.zoo.api.dto.mapper.RoomMapper.*;
 import static org.springframework.http.ResponseEntity.ok;
 
 @Controller
@@ -30,21 +30,22 @@ public class RoomController {
 
     @GetMapping
     @ResponseBody
-    public List<RoomDto> getRooms() {
+    public List<RoomEntityDto> getRooms() {
         return roomService.getAll().stream()
-                .map(RoomMapper::toRoomDto)
+                .map(RoomMapper::toRoomEntityDto)
                 .collect(toList());
         //return ResponseEntity.ok(animalRepository.getAll());
     }
 
     @GetMapping("/{roomId}")
-    public ResponseEntity<RoomDto> getRoom(@PathVariable Long roomId) {
+    public ResponseEntity<RoomEntityDto> getRoom(@PathVariable Long roomId) {
         var roomOptional = roomService.getById(roomId);
 
         var responseEntity = roomOptional
-                .map(room -> ok(toRoomDto(room)))
+                .map(room -> ok(toRoomEntityDto(room)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
 
+// vienas is budu kaip mappinti response:
 //        responseEntity = new ResponseEntity<>(toRoomDto(roomOptional.get()), HttpStatus.OK);
 
         return responseEntity;
@@ -64,9 +65,6 @@ public class RoomController {
 
     @PostMapping
     public ResponseEntity<RoomDto> createRoom(@Valid @RequestBody RoomDto roomDto) {
-        //FIXME temp
-        roomDto.setId(null);
-
         var createdRoom = roomService.create(toRoom(roomDto));
 
         return ok(toRoomDto(createdRoom));
@@ -74,9 +72,6 @@ public class RoomController {
 
     @PutMapping("/{animalId}")
     public ResponseEntity<RoomDto> updateRoom(@PathVariable Long animalId, @RequestBody RoomDto roomDto) {
-        //FIXME temp
-        roomDto.setId(null);
-
         var updatedRoom = roomService.update(animalId, toRoom(roomDto));
 
         return ok(toRoomDto(updatedRoom));

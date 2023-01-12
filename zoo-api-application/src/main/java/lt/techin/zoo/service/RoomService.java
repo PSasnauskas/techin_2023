@@ -53,16 +53,19 @@ public class RoomService {
     @PostConstruct
     //FIXME for dev purpose
     public void loadInitialRooms() {
+        //kodel sioje vietoje DTO ir mapping?
+        // nes Entity nesu pasidares patogaus constructor'iaus, todel taip greiciau
+        // tai laikinas metodas
         var initialRoomsToAdd = List.of(
-                new RoomDto(null, "priimamasis", LOBBY, ""),
-                new RoomDto(null, "uzrakintas", LOCKED, ""),
-                new RoomDto(null, "U v1", LOCKED, ""),
-                new RoomDto(null, "U v2", LOCKED, ""),
-                new RoomDto(null, "U v3", LOCKED, ""),
-                new RoomDto(null, "U v4", LOCKED, ""),
-                new RoomDto(null, "U v5", LOCKED, ""),
-                new RoomDto(null, "404 kambarys", FORBIDDEN, ""),
-                new RoomDto(null, "404 kambarys", LOCKED, "")
+                new RoomDto( "priimamasis", LOBBY, ""),
+                new RoomDto( "uzrakintas", LOCKED, ""),
+                new RoomDto( "U v1", LOCKED, ""),
+                new RoomDto( "U v2", LOCKED, ""),
+                new RoomDto( "U v3", LOCKED, ""),
+                new RoomDto( "U v4", LOCKED, ""),
+                new RoomDto( "U v5", LOCKED, ""),
+                new RoomDto( "404 kambarys", FORBIDDEN, ""),
+                new RoomDto( "404 kambarys", LOCKED, "")
         );
 
         initialRoomsToAdd.stream()

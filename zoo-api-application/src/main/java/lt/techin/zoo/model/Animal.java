@@ -37,7 +37,8 @@ public class Animal {
     //@JoinColumn(name = "room_id", nullable = true)
     private Room room;
 
-    //@Column(name = "created_date")
+    // unikalus column name, arba placiau konfiguruotas aprasas:
+    // @Column(name = "created_date")
     @CreatedDate
     private LocalDateTime createdDate;
 
@@ -54,7 +55,9 @@ public class Animal {
     @PrePersist
     public void prePersist() {
         createdDate = LocalDateTime.now();
+        modifiedDate = LocalDateTime.now();
         createdBy = "API app";
+        modifiedBy = "API app";
     }
 
     @PreUpdate

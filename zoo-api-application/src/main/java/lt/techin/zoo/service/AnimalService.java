@@ -6,7 +6,7 @@ import lt.techin.zoo.dao.AnimalRepository;
 import lt.techin.zoo.dao.RoomRepository;
 import lt.techin.zoo.exception.ZooValidationException;
 import lt.techin.zoo.model.Animal;
-import lt.techin.zoo.model.Room;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +24,7 @@ public class AnimalService {
     private final AnimalRepository animalRepository;
     private final RoomRepository roomRepository;
 
+    @Autowired //jeigu nenurodytume Spring'as (nuo 4.3 versijos) pridetu vieninteliam managed Bean klases konstruktoriuj @Autowired automatiskai
     public AnimalService(AnimalRepository animalRepository, RoomRepository roomRepository) {
         this.animalRepository = animalRepository;
         this.roomRepository = roomRepository;
