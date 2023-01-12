@@ -26,14 +26,14 @@ public class ObjectMapping {
     private static final String dateTimeFormat = "yyyy-MM-dd HH:mm:ss";
 
 
-//    @Bean
-//    public Jackson2ObjectMapperBuilderCustomizer jsonCustomizer() {
-//        return builder -> {
-//            builder.simpleDateFormat(dateTimeFormat);
-//            builder.serializers(new LocalDateSerializer(DateTimeFormatter.ofPattern(dateFormat)));
-//            builder.serializers(new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(dateTimeFormat)));
-//        };
-//    }
+    @Bean
+    public Jackson2ObjectMapperBuilderCustomizer jsonCustomizer() {
+        return builder -> {
+            builder.simpleDateFormat(dateTimeFormat);
+            builder.serializers(new LocalDateSerializer(DateTimeFormatter.ofPattern(dateFormat)));
+            builder.serializers(new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(dateTimeFormat)));
+        };
+    }
 
 //    @Bean
 //    @Primary
@@ -43,6 +43,12 @@ public class ObjectMapping {
 //        return new ObjectMapper()
 //                .setSerializationInclusion(JsonInclude.Include.NON_NULL)
 //                .registerModule(module);
+//    }
+//    @Bean
+//    @Primary
+//    public ObjectMapper objectMapper() {
+//        return new ObjectMapper()
+//                .setSerializationInclusion(JsonInclude.Include.NON_NULL);
 //    }
 //
 //    @Bean
@@ -61,12 +67,7 @@ public class ObjectMapping {
 //        );
 //    }
 
-//    @Bean
-//    @Primary
-//    public ObjectMapper objectMapper() {
-//        return new ObjectMapper()
-//                .setSerializationInclusion(JsonInclude.Include.NON_NULL);
-//    }
+
 
 //    @Bean
 //    public Jackson2ObjectMapperBuilderCustomizer customBuilder() {

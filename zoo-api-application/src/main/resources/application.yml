@@ -6,23 +6,30 @@ spring:
     default-property-inclusion: non_null
     serialization:
       write-dates-as-timestamps: false
-#    date-format: "yyyy-MM-dd HH:mm:ss"
+    date-format: "yyyy-MM-dd HH:mm"
   flyway:
-    enabled: false
+    enabled: true
   jpa:
+    hibernate:
+      ddl-auto: none
+#      ddl-auto: drop-and-create
+    generate-ddl: false
     properties:
       hibernate:
         show_sql: true
         format_sql: true
   datasource:
-    url: jdbc:h2:mem:mydb
+    url: jdbc:h2:tcp://localhost/~/test;SCHEMA=TECH_SCHEMA
+    #url: jdbc:h2:mem:mydb
     #    url: jdbc:h2:file:/data/demo
     # home local Win: jdbc:h2:~/test
     username: sa
-    password: password
+    password:
     driverClassName: org.h2.Driver
     jpa:
       spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+#      generate-ddl: false
+
 #      hibernate:
 #        ddl-auto: none
 #  h2:
@@ -34,12 +41,12 @@ logging:
     lt:
       techin: DEBUG
     org:
-#      springframework: INFO
-      springframework:
-        jdbc:
-          core:
-            JdbcTemplate: DEBUG
-            StatementCreatorUtils: DEBUG
+      springframework: INFO
+#      springframework: DEBUG
+#        jdbc:
+#          core:
+#            JdbcTemplate: DEBUG
+#            StatementCreatorUtils: DEBUG
       hibernate:
         SQL: DEBUG
         type: TRACE
@@ -51,6 +58,6 @@ logging:
 weather:
   api:
     city-id: 593116
-    application-id:
+    application-id: 38c8cb3f301b5ecb71e7249d5e0a6808
     units: metric
     delay-milliseconds: 60000

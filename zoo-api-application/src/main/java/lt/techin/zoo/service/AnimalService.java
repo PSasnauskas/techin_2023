@@ -102,25 +102,25 @@ public class AnimalService {
         return animalRepository.save(existingAnimal);
     }
 
-    @PostConstruct
-    //FIXME for dev purpose
-    public void loadInitialAnimals() {
-        var initialAnimalsToAdd = List.of(
-                new AnimalDto("zirafa", GIRAFFE, ""),
-                new AnimalDto("tigriukas", TIGER, ""),
-                new AnimalDto("liutukas", LION, null)
-        );
-
-
-        initialAnimalsToAdd.stream()
-                .map(AnimalMapper::toAnimal)
-                .forEach(animalRepository::save);
-
-        var registeredParrot = new AnimalDto("registruotas zveris", PARROT, null);
-        var parrotEntity = toAnimal(registeredParrot);
-        parrotEntity.setRegistered(true);
-        animalRepository.save(parrotEntity);
-    }
+//    @PostConstruct
+//    //FIXME for dev purpose
+//    public void loadInitialAnimals() {
+//        var initialAnimalsToAdd = List.of(
+//                new AnimalDto("zirafa", GIRAFFE, ""),
+//                new AnimalDto("tigriukas", TIGER, ""),
+//                new AnimalDto("liutukas", LION, null)
+//        );
+//
+//
+//        initialAnimalsToAdd.stream()
+//                .map(AnimalMapper::toAnimal)
+//                .forEach(animalRepository::save);
+//
+//        var registeredParrot = new AnimalDto("registruotas zveris", PARROT, null);
+//        var parrotEntity = toAnimal(registeredParrot);
+//        parrotEntity.setRegistered(true);
+//        animalRepository.save(parrotEntity);
+//    }
 
 
 }

@@ -37,6 +37,15 @@ public class RoomController {
         //return ResponseEntity.ok(animalRepository.getAll());
     }
 
+    @GetMapping("/search")
+    @ResponseBody
+    public List<RoomEntityDto> findRoomsPaged(@RequestParam(required = false) String name, @RequestParam(required = false) RoomType type,
+                                              @RequestParam int page, @RequestParam int pageSize) {
+        return roomService.findByExample(name, type, page, pageSize).stream()
+                .map(RoomMapper::toRoomEntityDto)
+                .collect(toList());
+    }
+
     @GetMapping("/{roomId}")
     public ResponseEntity<RoomEntityDto> getRoom(@PathVariable Long roomId) {
         var roomOptional = roomService.getById(roomId);

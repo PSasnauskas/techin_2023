@@ -1,7 +1,7 @@
 # Flyway
 ### Database migration tool
 
-`other popular tool: **Liquibase**
+other popular tool: **Liquibase**
 
 
 ### Configuration

@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
-import static lt.techin.zoo.api.dto.mapper.AnimalMapper.*;
+import static lt.techin.zoo.api.dto.mapper.AnimalMapper.toAnimal;
+import static lt.techin.zoo.api.dto.mapper.AnimalMapper.toAnimalDto;
 import static org.springframework.http.ResponseEntity.ok;
 
 @Controller

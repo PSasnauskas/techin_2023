@@ -7,7 +7,7 @@ technique for routine jobs
 - annotation on method: @Scheduled
 - option with fixed delay: `(fixedDelay = 1000)`
 - option with fixed rate: `(fixedRate = 1000)`
-- option with Cron expression: `(cron = "0 15 10 15 * ?")`
+- option with Cron expression: `(cron = "0 15 10 15 * ?")`. Doc: https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/scheduling/support/CronExpression.html
 - parameterized configuration: @Scheduled(fixedDelayString = "${fixedDelay.in.milliseconds}")
 
 

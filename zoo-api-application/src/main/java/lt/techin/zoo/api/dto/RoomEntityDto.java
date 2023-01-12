@@ -11,7 +11,7 @@ public class RoomEntityDto extends RoomDto {
 
     private Long id;
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+//    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime modifiedDate;
 
 

@@ -16,7 +16,7 @@ import static javax.persistence.EnumType.STRING;
 public class Room {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
