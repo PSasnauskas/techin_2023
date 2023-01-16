@@ -1,5 +1,6 @@
 package lt.techin.zoo.api;
 
+import lt.techin.zoo.api.dto.WeatherDto;
 import lt.techin.zoo.service.WeatherService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

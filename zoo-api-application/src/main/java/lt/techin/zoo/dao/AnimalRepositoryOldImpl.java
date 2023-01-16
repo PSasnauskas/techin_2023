@@ -11,6 +11,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 // findStoreByLocationId
 
 //@Repository
+/**
+ * @deprecated was temporal implementation
+ */
 public class AnimalRepositoryOldImpl {
 
     //FIXME temp implementation before going JPA

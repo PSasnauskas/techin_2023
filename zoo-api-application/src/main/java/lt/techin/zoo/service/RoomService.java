@@ -3,8 +3,10 @@ package lt.techin.zoo.service;
 import lt.techin.zoo.api.dto.RoomDto;
 import lt.techin.zoo.api.dto.mapper.RoomMapper;
 import lt.techin.zoo.dao.RoomRepository;
+import lt.techin.zoo.exception.ZooValidationException;
 import lt.techin.zoo.model.Room;
 import lt.techin.zoo.model.RoomType;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,9 +22,12 @@ import static lt.techin.zoo.model.RoomType.*;
 public class RoomService {
 
     private final RoomRepository roomRepository;
+    private final Integer maxRooms;
 
-    public RoomService(RoomRepository roomRepository) {
+    public RoomService(RoomRepository roomRepository,
+                       @Value("${rooms.max-rooms}") Integer maxRooms) {
         this.roomRepository = roomRepository;
+        this.maxRooms = maxRooms;
     }
 
     public List<Room> getAll() {
@@ -35,6 +40,11 @@ public class RoomService {
 
 
     public Room create(Room room) {
+        if (roomRepository.count() >= maxRooms) {
+            throw new ZooValidationException("Max Capacity of Rooms exceeded",
+                    "roomCount", "Max Capacity of Rooms exceeded", null);
+        }
+
         return roomRepository.save(room);
     }
 

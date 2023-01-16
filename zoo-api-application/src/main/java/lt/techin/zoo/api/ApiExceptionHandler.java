@@ -3,6 +3,7 @@ package lt.techin.zoo.api;
 import lt.techin.zoo.api.dto.ErrorDto;
 import lt.techin.zoo.api.dto.ErrorFieldDto;
 import lt.techin.zoo.api.dto.mapper.ErrorFieldMapper;
+import lt.techin.zoo.exception.ZooServiceDisabledException;
 import lt.techin.zoo.exception.ZooValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +11,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpMediaTypeException;
-import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -100,6 +100,16 @@ public class ApiExceptionHandler {
                 request.getRequestURL().toString(),
                 LocalDateTime.now());
         return ResponseEntity.badRequest().body(errorDto);
+    }
+
+
+    @ExceptionHandler(ZooServiceDisabledException.class)
+    public ResponseEntity<Void> handleZooServiceDisabledException(HttpServletRequest request, ZooServiceDisabledException serviceDisabledException) {
+        logger.error("ZooServiceDisabledException: {}", serviceDisabledException.getMessage());
+
+        var errorStatus = HttpStatus.SERVICE_UNAVAILABLE;
+
+        return new ResponseEntity<>(errorStatus);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

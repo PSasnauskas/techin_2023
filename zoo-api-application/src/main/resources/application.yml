@@ -19,8 +19,8 @@ spring:
         show_sql: true
         format_sql: true
   datasource:
-    url: jdbc:h2:tcp://localhost/~/test;SCHEMA=TECH_SCHEMA
-    #url: jdbc:h2:mem:mydb
+    #url: jdbc:h2:tcp://localhost/~/test;SCHEMA=TECH_SCHEMA
+    url: jdbc:h2:mem:test;;INIT=CREATE SCHEMA IF NOT EXISTS TECH_SCHEMA
     #    url: jdbc:h2:file:/data/demo
     # home local Win: jdbc:h2:~/test
     username: sa
@@ -55,9 +55,13 @@ logging:
           sql:
             BasicBinder: DEBUG
 
+rooms:
+  max-rooms: 200
+
 weather:
   api:
+    enabled: false
     city-id: 593116
-    application-id: 38c8cb3f301b5ecb71e7249d5e0a6808
+    application-id:
     units: metric
     delay-milliseconds: 60000

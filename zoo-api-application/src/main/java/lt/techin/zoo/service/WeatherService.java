@@ -1,8 +1,9 @@
 package lt.techin.zoo.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lt.techin.zoo.api.WeatherDto;
+import lt.techin.zoo.api.dto.WeatherDto;
 import lt.techin.zoo.configuration.OpenWeatherApiProperties;
+import lt.techin.zoo.exception.ZooServiceDisabledException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -21,10 +22,10 @@ public class WeatherService {
 
 
     private Optional<WeatherDto> lastWeather;
-    private LocalDateTime lastUpdateTime;
-
     private final String requestURL;
     private final ObjectMapper objectMapper;
+
+    private final boolean enabled;
 
     public WeatherService(OpenWeatherApiProperties weatherApiProperties, ObjectMapper objectMapper) {
         this.requestURL = String.format(OPEN_WEATHER_MAP_API_GET_FORMAT,
@@ -32,16 +33,18 @@ public class WeatherService {
         this.objectMapper = objectMapper;
 
         this.lastWeather = Optional.empty();
+        this.enabled = Boolean.TRUE.equals(weatherApiProperties.getEnabled());
     }
 
     @Scheduled(fixedRateString = "${weather.api.delay-milliseconds}")
     public void updateWeatherInformation() {
-        logger.info("Calling for weather Information");
+        if (!enabled) {
+            return;
+        }
 
-        logger.info("my request URL: {}", requestURL);
+        logger.info("Calling for weather Information. request URL: {}", requestURL);
 
-        //TODO debug
-        RestTemplate restTemplate = new RestTemplate();
+        var restTemplate = new RestTemplate();
         var response = restTemplate
                 .getForEntity(requestURL, WeatherDto.class);
 
@@ -57,6 +60,10 @@ public class WeatherService {
     }
 
     public Optional<WeatherDto> getLastWeather() {
+        if (!enabled) {
+            throw new ZooServiceDisabledException("Weather service is Disabled");
+        }
+
         return lastWeather;
     }
 

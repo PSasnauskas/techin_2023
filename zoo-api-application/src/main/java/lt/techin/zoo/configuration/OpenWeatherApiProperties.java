@@ -5,9 +5,19 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "weather.api")
 public class OpenWeatherApiProperties {
 
+    private Boolean enabled;
+
     private String cityId;
     private String applicationId;
     private String units;
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
 
     public String getCityId() {
         return cityId;

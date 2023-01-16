@@ -1,4 +1,4 @@
-package lt.techin.zoo.api;
+package lt.techin.zoo.api.dto;
 
 import java.time.LocalDateTime;
 
